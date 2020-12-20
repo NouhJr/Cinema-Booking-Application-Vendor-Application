@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vendor_app/Components/Custom_Scaffold.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,6 +9,6 @@ class HomeScreen extends StatefulWidget {
 class _MainScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return CustomScaffold();
   }
 }
