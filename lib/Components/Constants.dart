@@ -16,10 +16,29 @@ const AppBarFontStyle = TextStyle(
 );
 
 const AppBarLabeledBottomFontStyle = TextStyle(
-  fontSize: 18.0,
-  fontWeight: FontWeight.bold,
+  fontSize: 17.0,
+  fontWeight: FontWeight.w500,
 );
 
 const AppBarUnLabeledBottomFontStyle = TextStyle(
   fontSize: 16.0,
 );
+
+///*************************Movies Label Text Style**************************/
+const MoviesLabelFontStyle = TextStyle(
+  fontSize: 20.0,
+  fontWeight: FontWeight.w800,
+  fontStyle: FontStyle.italic,
+);
+
+const KProductCardDecoration = BoxDecoration(color: SubMainColor, boxShadow: [
+  BoxShadow(
+    //color: Color.fromRGBO(0, 0, 0, 0.10),
+    blurRadius: 2.5,
+    spreadRadius: 1.0,
+    offset: Offset(
+      0,
+      2.0,
+    ),
+  )
+]);
