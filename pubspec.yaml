@@ -32,7 +32,12 @@ dependencies:
   firebase_core: ^0.5.3
   firebase_auth: ^0.18.4+1
   cloud_firestore: ^0.14.4
-  firebase_storage: ^5.2.0 
+  firebase_storage: ^5.2.0
+  image_picker: ^0.6.7+4
+  shared_preferences: ^0.5.8
+  connectivity: ^0.4.9
+  flushbar: ^1.10.4
+  
 
 dev_dependencies:
   flutter_test:

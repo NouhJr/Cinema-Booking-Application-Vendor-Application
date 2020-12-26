@@ -31,9 +31,9 @@ const MoviesLabelFontStyle = TextStyle(
   fontStyle: FontStyle.italic,
 );
 
-const KProductCardDecoration = BoxDecoration(color: SubMainColor, boxShadow: [
+///*************************Movies Card Decoration**************************/
+const MoviesCardDecoration = BoxDecoration(color: SubMainColor, boxShadow: [
   BoxShadow(
-    //color: Color.fromRGBO(0, 0, 0, 0.10),
     blurRadius: 2.5,
     spreadRadius: 1.0,
     offset: Offset(

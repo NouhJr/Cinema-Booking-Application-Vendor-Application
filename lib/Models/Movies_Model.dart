@@ -85,7 +85,7 @@ class SingleMovie extends StatelessWidget {
             },
             child: GridTile(
               footer: Container(
-                decoration: KProductCardDecoration,
+                decoration: MoviesCardDecoration,
                 child: ListTile(
                   leading: Text(
                     movieTitle,

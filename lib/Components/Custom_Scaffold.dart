@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/Components/Constants.dart';
 import 'package:vendor_app/Components/Size_Configurations.dart';
+import 'package:vendor_app/Components/Navigator.dart';
+import 'package:vendor_app/Screens/Adding_New_Movie_Screen.dart';
 
 class CustomScaffold extends StatefulWidget {
   final Widget scaffoldBody;
@@ -53,18 +55,22 @@ class _CustomScaffoldState extends State<CustomScaffold>
         ),
         backgroundColor: Colors.blueGrey[900],
         body: bodyFromHome,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
-          label: Text(
-            "Add new Movie",
-            style: AppBarLabeledBottomFontStyle,
-          ),
-          backgroundColor: MainColor,
-          icon: Icon(
-            Icons.add,
-            color: SubMainColor,
-            size: 30.0,
-          ),
-        ));
+        floatingActionButton: showFAB
+            ? FloatingActionButton.extended(
+                onPressed: () {
+                  CustomRouter().navigator(context, AddingMovies());
+                },
+                label: Text(
+                  "Add new Movie",
+                  style: AppBarLabeledBottomFontStyle,
+                ),
+                backgroundColor: MainColor,
+                icon: Icon(
+                  Icons.add,
+                  color: SubMainColor,
+                  size: 30.0,
+                ),
+              )
+            : null);
   }
 }
