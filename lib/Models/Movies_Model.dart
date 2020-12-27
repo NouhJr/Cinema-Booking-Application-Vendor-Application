@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vendor_app/Components/Constants.dart';
+import 'package:vendor_app/Components/Navigator.dart';
+import 'package:vendor_app/Screens/Movie_Details_Screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -81,7 +83,16 @@ class SingleMovie extends StatelessWidget {
           elevation: 10.0,
           child: InkWell(
             onTap: () {
-              print(docID);
+              CustomRouter().navigator(
+                  context,
+                  MovieDetails(
+                    movieTitle: movieTitle,
+                    movieDescription: movieDesc,
+                    movieImage: movieImg,
+                    movieSeats: movieSeats,
+                    movieTime: movieTime,
+                    documentID: docID,
+                  ));
             },
             child: GridTile(
               footer: Container(
@@ -90,7 +101,7 @@ class SingleMovie extends StatelessWidget {
                   leading: Text(
                     movieTitle,
                     style: MoviesLabelFontStyle,
-                    textAlign: TextAlign.center,
+                    //textAlign: TextAlign.center,
                   ),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
