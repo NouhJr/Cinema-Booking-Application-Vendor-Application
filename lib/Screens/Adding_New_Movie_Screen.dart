@@ -3,11 +3,14 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:vendor_app/Components/Constants.dart';
 import 'package:vendor_app/Components/Custom_Text_Field.dart';
 import 'package:vendor_app/Components/Size_Configurations.dart';
 import 'package:vendor_app/Components/Navigator.dart';
+import 'package:vendor_app/Components/FlushBar.dart';
 import 'package:vendor_app/Screens/Image_Selection.dart';
+import 'package:vendor_app/Screens/Home_Screen.dart';
 
 class AddingMovies extends StatefulWidget {
   @override
@@ -147,24 +150,67 @@ class _AddingMoviesState extends State<AddingMovies> {
   }
 
   Future submit() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      var uploadedImageUrl = prefs.getString('IMAGEURL');
-      await fireStore
-          .collection('Movies')
-          .doc(movieTilteController.text
-              .replaceAll(new RegExp(r"\s+\b|\b\s"), ""))
-          .set({
-        'Title': movieTilteController.text,
-        'Description': movieDescriptionController.text,
-        'Image': uploadedImageUrl,
-        'Number of seats': 47,
-        'Time': movieTimeController.text,
-        'DocID':
-            movieTilteController.text.replaceAll(new RegExp(r"\s+\b|\b\s"), ""),
-      });
-    } catch (e) {
-      print(e.toString());
+    //Check if there is internet connection or not and display message error if not.
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      Warning().errorMessage(
+        context,
+        title: "No internet connection !",
+        message: "Pleas turn on wifi or mobile data",
+        icons: Icons.signal_wifi_off,
+      );
+
+      //Ensure that 'Movie Title' field isn't empty.
+    } else if (movieTilteController.text.isEmpty) {
+      Warning().errorMessage(
+        context,
+        title: "Movie Title can't be empty !",
+        message: 'Please enter movie title.',
+        icons: Icons.warning,
+      );
+      //Ensure that 'Movie Description' field isn't empty.
+    } else if (movieDescriptionController.text.isEmpty) {
+      Warning().errorMessage(
+        context,
+        title: "Movie Description can't be empty !",
+        message: 'Please enter movie description.',
+        icons: Icons.warning,
+      );
+      //Ensure that 'Movie Time' field isn't empty.
+    } else if (movieTimeController.text.isEmpty) {
+      Warning().errorMessage(
+        context,
+        title: "Movie Time can't be empty !",
+        message: 'Please enter movie time.',
+        icons: Icons.warning,
+      );
+    } else {
+      try {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        var uploadedImageUrl = prefs.getString('IMAGEURL');
+        await fireStore
+            .collection('Movies')
+            .doc(movieTilteController.text
+                .replaceAll(new RegExp(r"\s+\b|\b\s"), ""))
+            .set({
+          'Title': movieTilteController.text,
+          'Description': movieDescriptionController.text,
+          'Image': uploadedImageUrl,
+          'Number of seats': 47,
+          'Time': movieTimeController.text,
+          'DocID': movieTilteController.text
+              .replaceAll(new RegExp(r"\s+\b|\b\s"), ""),
+        });
+        Warning().errorMessage(
+          context,
+          title: "Created...!",
+          message: "Movie created successfully.",
+          icons: Icons.check_circle,
+        );
+        CustomRouter().navigator(context, HomeScreen());
+      } catch (e) {
+        print(e.toString());
+      }
     }
   }
 }

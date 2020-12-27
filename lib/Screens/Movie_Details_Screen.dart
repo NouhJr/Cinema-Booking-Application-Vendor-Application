@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:vendor_app/Components/Size_Configurations.dart';
 import 'package:vendor_app/Components/Constants.dart';
+import 'package:vendor_app/Components/FlushBar.dart';
+import 'package:vendor_app/Components/Navigator.dart';
+import 'package:vendor_app/Screens/Home_Screen.dart';
 
 class MovieDetails extends StatefulWidget {
   MovieDetails({
@@ -202,10 +206,27 @@ class _MovieDetailsState extends State<MovieDetails> {
   }
 
   Future delete() async {
-    try {
-      await fireStore.collection('Movies').doc(docID).delete();
-    } catch (e) {
-      print(e.toString());
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      Warning().errorMessage(
+        context,
+        title: "No internet connection !",
+        message: "Pleas turn on wifi or mobile data",
+        icons: Icons.signal_wifi_off,
+      );
+    } else {
+      try {
+        await fireStore.collection('Movies').doc(docID).delete();
+        Warning().errorMessage(
+          context,
+          title: "Deleted...!",
+          message: "Movie deleted successfully.",
+          icons: Icons.check_circle,
+        );
+        CustomRouter().navigator(context, HomeScreen());
+      } catch (e) {
+        print(e.toString());
+      }
     }
   }
 }
