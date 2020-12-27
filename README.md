@@ -1,16 +1,16 @@
-# vendor_app
+# Cinema Booking Application
+System for E-booking where cinema vendor can offer their available movies and allow customers to book cinema seats online for a certain movie.
+System has two apps:
+1- Vendor App
+2- Customer App
 
-A new Flutter project.
+1- Vendor App:
+* Mobile app allows vendors to (add/delete) their movies.
+* Each movie has (Title, Description, Image, Movie Time, Number of Seats).
+* Number of seats for each movie will be constant (47 seats) as shown in the figure 1.
+* Movie image can be local file on device or captured through camera.
+* Vendor can view the places of the booked seats for a movie.
+* Vendor gets notification (which display total number of booked seats for a movie) when customer books seats.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2- Customer App
+Customer's app repository can be found here: https://github.com/NouhJr/Cinema-Booking-Application-Customer-Application
