@@ -87,6 +87,28 @@ class _AddingMoviesState extends State<AddingMovies> {
                       onPressed: chooseFile,
                     ),
                   ),
+                  SizedBox(
+                    width: SizeConfig.defaultSize,
+                  ),
+                  ButtonTheme(
+                    minWidth: SizeConfig.defaultSize * 12,
+                    height: SizeConfig.defaultSize * 3,
+                    child: RaisedButton(
+                      color: SubMainColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      child: Text(
+                        'Take picture',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.blueGrey[900],
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      onPressed: takePicture,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -138,6 +160,21 @@ class _AddingMoviesState extends State<AddingMovies> {
   Future chooseFile() async {
     final _picker = ImagePicker();
     PickedFile image = await _picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      _image = File(image.path);
+    });
+    CustomRouter().navigator(
+      context,
+      Selection(
+        picture: _image,
+      ),
+    );
+  }
+
+  //Method 'chooseFile' to make the user choose photo from device's gallary.
+  Future takePicture() async {
+    final _picker = ImagePicker();
+    PickedFile image = await _picker.getImage(source: ImageSource.camera);
     setState(() {
       _image = File(image.path);
     });
@@ -201,13 +238,13 @@ class _AddingMoviesState extends State<AddingMovies> {
           'DocID': movieTilteController.text
               .replaceAll(new RegExp(r"\s+\b|\b\s"), ""),
         });
+        CustomRouter().navigator(context, HomeScreen());
         Warning().errorMessage(
           context,
           title: "Created...!",
           message: "Movie created successfully.",
           icons: Icons.check_circle,
         );
-        CustomRouter().navigator(context, HomeScreen());
       } catch (e) {
         print(e.toString());
       }

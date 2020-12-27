@@ -217,13 +217,13 @@ class _MovieDetailsState extends State<MovieDetails> {
     } else {
       try {
         await fireStore.collection('Movies').doc(docID).delete();
+        CustomRouter().navigator(context, HomeScreen());
         Warning().errorMessage(
           context,
           title: "Deleted...!",
           message: "Movie deleted successfully.",
           icons: Icons.check_circle,
         );
-        CustomRouter().navigator(context, HomeScreen());
       } catch (e) {
         print(e.toString());
       }
