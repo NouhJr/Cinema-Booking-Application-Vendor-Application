@@ -1,3 +1,4 @@
+//Import packages.
 import 'package:flutter/material.dart';
 import 'package:vendor_app/Components/Constants.dart';
 import 'package:vendor_app/Components/Size_Configurations.dart';
