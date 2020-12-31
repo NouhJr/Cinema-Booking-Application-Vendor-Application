@@ -7,6 +7,9 @@ const MainColor = Color(0xFF4b0082);
 const SubMainColor = Color(0xFFffc045);
 const MainFontsColor = Color(0xFFffc045);
 const SubFontsColor = Color(0xFFffffff);
+const BookedSeatColor = Color(0xFFf41606);
+const AvailableSeatColor = Color(0xFF4da602);
+const FreeSeatColor = Color(0xFFffffff);
 
 ///*************************App Bar Text Style**************************/
 const AppBarFontStyle = TextStyle(
@@ -29,6 +32,14 @@ const MoviesLabelFontStyle = TextStyle(
   fontSize: 20.0,
   fontWeight: FontWeight.w800,
   fontStyle: FontStyle.italic,
+);
+
+///*************************Hint Label Text Style**************************/
+const HintLabelFontStyle = TextStyle(
+  fontSize: 18.0,
+  fontWeight: FontWeight.w800,
+  fontStyle: FontStyle.italic,
+  color: MainFontsColor,
 );
 
 ///*************************Movies Card Decoration**************************/

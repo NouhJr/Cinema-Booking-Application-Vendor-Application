@@ -9,47 +9,46 @@ import 'package:vendor_app/Screens/Home_Screen.dart';
 
 class MovieDetails extends StatefulWidget {
   MovieDetails({
-    this.movieTitle,
-    this.movieDescription,
-    this.movieTime,
-    this.movieImage,
-    this.movieSeats,
     this.documentID,
   });
-  final String movieTitle;
-  final String movieDescription;
-  final String movieTime;
-  final String movieImage;
   final String documentID;
-  final int movieSeats;
   @override
-  _MovieDetailsState createState() => _MovieDetailsState(
-        title: movieTitle,
-        description: movieDescription,
-        time: movieTime,
-        image: movieImage,
-        docID: documentID,
-        seats: movieSeats,
-      );
+  _MovieDetailsState createState() => _MovieDetailsState();
 }
 
 class _MovieDetailsState extends State<MovieDetails> {
-  _MovieDetailsState({
-    this.title,
-    this.description,
-    this.time,
-    this.image,
-    this.seats,
-    this.docID,
-  });
-  final String title;
-  final String description;
-  final String time;
-  final String image;
-  final String docID;
-  final int seats;
+  String title = '';
+  String description = '';
+  String time = '';
+  String image =
+      "https://firebasestorage.googleapis.com/v0/b/cinema-management-system-39a82.appspot.com/o/images.png?alt=media&token=23d14fd0-c816-49e8-8776-59cc4bca30f1";
+  int seats = 0;
 
   final fireStore = FirebaseFirestore.instance;
+  void getData() async {
+    final doc =
+        await fireStore.collection('Movies').doc(widget.documentID).get();
+    var movieTitle = doc['Title'];
+    var movieDescription = doc['Description'];
+    var movieTime = doc['Time'];
+    var movieImage = doc['Image'];
+    var movieSeats = doc['Number of seats'];
+
+    setState(() {
+      title = movieTitle;
+      description = movieDescription;
+      time = movieTime;
+      image = movieImage;
+      seats = movieSeats;
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+    Future.delayed(Duration(seconds: 1));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +138,7 @@ class _MovieDetailsState extends State<MovieDetails> {
             child: Row(
               children: [
                 Text(
-                  'Time :',
+                  'Show Time :',
                   style: TextStyle(
                     color: Colors.blueGrey[900],
                     fontSize: 24.0,
@@ -154,7 +153,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                   time,
                   style: TextStyle(
                     color: Colors.blueGrey[900],
-                    fontSize: 20.0,
+                    fontSize: 22.0,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -184,7 +183,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                   seats.toString(),
                   style: TextStyle(
                     color: Colors.blueGrey[900],
-                    fontSize: 20.0,
+                    fontSize: 22.0,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -215,18 +214,69 @@ class _MovieDetailsState extends State<MovieDetails> {
         icons: Icons.signal_wifi_off,
       );
     } else {
-      try {
-        await fireStore.collection('Movies').doc(docID).delete();
-        CustomRouter().navigator(context, HomeScreen());
-        Warning().errorMessage(
-          context,
-          title: "Deleted...!",
-          message: "Movie deleted successfully.",
-          icons: Icons.check_circle,
-        );
-      } catch (e) {
-        print(e.toString());
-      }
+      showDialog(
+          context: context,
+          child: AlertDialog(
+            backgroundColor: Colors.blueGrey[900],
+            elevation: 1.0,
+            content: Text(
+              'Do you want to delete this movie?',
+              style: TextStyle(
+                color: MainFontsColor,
+                fontWeight: FontWeight.w400,
+                fontSize: 18,
+              ),
+            ),
+            actions: [
+              ButtonTheme(
+                child: RaisedButton(
+                  color: SubMainColor,
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(
+                      color: Colors.blueGrey[900],
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18,
+                    ),
+                  ),
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    try {
+                      await fireStore
+                          .collection('Movies')
+                          .doc(widget.documentID)
+                          .delete();
+                      CustomRouter().navigator(context, HomeScreen());
+                      Warning().errorMessage(
+                        context,
+                        title: "Deleted...!",
+                        message: "Movie deleted successfully.",
+                        icons: Icons.check_circle,
+                      );
+                    } catch (e) {
+                      print(e.toString());
+                    }
+                  },
+                ),
+              ),
+              ButtonTheme(
+                child: RaisedButton(
+                  color: SubMainColor,
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(
+                      color: Colors.blueGrey[900],
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
+          ));
     }
   }
 }

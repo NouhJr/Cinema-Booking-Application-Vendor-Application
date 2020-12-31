@@ -8,8 +8,6 @@ import 'package:connectivity/connectivity.dart';
 import 'package:vendor_app/Components/Constants.dart';
 import 'package:vendor_app/Components/Size_Configurations.dart';
 import 'package:vendor_app/Components/FlushBar.dart';
-import 'package:vendor_app/Components/Navigator.dart';
-import 'package:vendor_app/Screens/Adding_New_Movie_Screen.dart';
 
 class Selection extends StatefulWidget {
   Selection({this.picture});
@@ -104,7 +102,6 @@ class _SelectionState extends State<Selection> {
       await uploadTask.whenComplete(() => null);
       String uploadedImageUrl = await ref.getDownloadURL();
 
-      CustomRouter().navigator(context, AddingMovies());
       Warning().errorMessage(
         context,
         title: "Uploaded...!",

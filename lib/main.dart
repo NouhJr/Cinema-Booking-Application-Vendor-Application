@@ -7,6 +7,7 @@ void main() async {
   await Firebase.initializeApp();
   runApp(MaterialApp(
     //Start point (Home Screen)
+    debugShowCheckedModeBanner: false,
     home: HomeScreen(),
   ));
 }

@@ -237,6 +237,62 @@ class _AddingMoviesState extends State<AddingMovies> {
           'Time': movieTimeController.text,
           'DocID': movieTilteController.text
               .replaceAll(new RegExp(r"\s+\b|\b\s"), ""),
+          "Seats": [
+            {"ID": 1, "Is Reserved": false},
+            {"ID": 2, "Is Reserved": false},
+            {"ID": 3, "Is Reserved": false},
+            {"ID": 4, "Is Reserved": false},
+            {"ID": 5, "Is Reserved": false},
+            {"ID": 6, "Is Reserved": false},
+            {"ID": 7, "Is Reserved": false},
+            {"ID": 8, "Is Reserved": false},
+            {"ID": 9, "Is Reserved": false},
+            {"ID": 10, "Is Reserved": false},
+            {"ID": 11, "Is Reserved": false},
+            {"ID": 12, "Is Reserved": false},
+            {"ID": 13, "Is Reserved": false},
+            {"ID": 14, "Is Reserved": false},
+            {"ID": 15, "Is Reserved": false},
+            {"ID": 16, "Is Reserved": false},
+            {"ID": 17, "Is Reserved": false},
+            {"ID": 18, "Is Reserved": false},
+            {"ID": 19, "Is Reserved": false},
+            {"ID": 20, "Is Reserved": false},
+            {"ID": 21, "Is Reserved": false},
+            {"ID": 22, "Is Reserved": false},
+            {"ID": 23, "Is Reserved": false},
+            {"ID": 24, "Is Reserved": false},
+            {"ID": 25, "Is Reserved": false},
+            {"ID": 26, "Is Reserved": false},
+            {"ID": 27, "Is Reserved": false},
+            {"ID": 28, "Is Reserved": false},
+            {"ID": 29, "Is Reserved": false},
+            {"ID": 30, "Is Reserved": false},
+            {"ID": 31, "Is Reserved": false},
+            {"ID": 32, "Is Reserved": false},
+            {"ID": 33, "Is Reserved": false},
+            {"ID": 34, "Is Reserved": false},
+            {"ID": 35, "Is Reserved": false},
+            {"ID": 36, "Is Reserved": false},
+            {"ID": 37, "Is Reserved": false},
+            {"ID": 38, "Is Reserved": false},
+            {"ID": 39, "Is Reserved": false},
+            {"ID": 40, "Is Reserved": false},
+            {"ID": 41, "Is Reserved": false},
+            {"ID": 42, "Is Reserved": false},
+            {"ID": 43, "Is Reserved": false},
+            {"ID": 44, "Is Reserved": false},
+            {"ID": 45, "Is Reserved": false},
+            {"ID": 46, "Is Reserved": false},
+            {"ID": 47, "Is Reserved": false}
+          ],
+          "Selected IDs": [],
+          "Selected IDs Index": -1
+        });
+
+        await fireStore.collection('Vendor Notifications').doc().set({
+          'Movie DOC ID': movieTilteController.text
+              .replaceAll(new RegExp(r"\s+\b|\b\s"), ""),
         });
         CustomRouter().navigator(context, HomeScreen());
         Warning().errorMessage(

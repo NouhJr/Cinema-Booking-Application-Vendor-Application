@@ -66,6 +66,7 @@ flutter:
     - Assets/344-3449415_motorhead-logo-png-cinema-icon-png.png
     - Assets/logo.png
     - Assets/splash.jpg
+    - Assets/screen.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -4,6 +4,7 @@ import 'package:vendor_app/Components/Constants.dart';
 import 'package:vendor_app/Components/Size_Configurations.dart';
 import 'package:vendor_app/Components/Navigator.dart';
 import 'package:vendor_app/Screens/Adding_New_Movie_Screen.dart';
+import 'package:vendor_app/Screens/Notifications_Screen.dart';
 
 class CustomScaffold extends StatefulWidget {
   final Widget scaffoldBody;
@@ -52,6 +53,19 @@ class _CustomScaffoldState extends State<CustomScaffold>
           centerTitle: true,
           backgroundColor: MainColor,
           elevation: 1.0,
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.notifications,
+                color: SubMainColor,
+              ),
+              onPressed: () {
+                CustomRouter().navigator(context, NotificationsScreen());
+              },
+              iconSize: 35,
+            ),
+          ],
+          leading: Container(),
         ),
         backgroundColor: Colors.blueGrey[900],
         body: bodyFromHome,

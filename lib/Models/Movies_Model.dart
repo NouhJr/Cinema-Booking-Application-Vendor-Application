@@ -24,7 +24,7 @@ class _MoviesStreamState extends State<MoviesStream> {
             ),
           );
         }
-        final movies = snapshot.data.docs.reversed;
+        final movies = snapshot.data.docs;
         List<SingleMovie> moviesList = [];
         for (var movie in movies) {
           final movieName = movie.data()['Title'];
@@ -86,11 +86,6 @@ class SingleMovie extends StatelessWidget {
               CustomRouter().navigator(
                   context,
                   MovieDetails(
-                    movieTitle: movieTitle,
-                    movieDescription: movieDesc,
-                    movieImage: movieImg,
-                    movieSeats: movieSeats,
-                    movieTime: movieTime,
                     documentID: docID,
                   ));
             },
