@@ -29,12 +29,15 @@ class _CienmaSeatState extends State<Seat> {
           width: MediaQuery.of(context).size.width / 15,
           height: MediaQuery.of(context).size.width / 15,
           decoration: BoxDecoration(
-              color: widget.isSelected && !widget.isReserved
-                  ? AvailableSeatColor
-                  : widget.isReserved
-                      ? BookedSeatColor
-                      : FreeSeatColor,
-              borderRadius: BorderRadius.circular(5.0))),
+              color: seatColor(), borderRadius: BorderRadius.circular(5.0))),
     );
+  }
+
+  Color seatColor() {
+    if (widget.isReserved) {
+      return BookedSeatColor;
+    } else {
+      return FreeSeatColor;
+    }
   }
 }

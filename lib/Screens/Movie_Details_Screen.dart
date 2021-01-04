@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vendor_app/Components/Size_Configurations.dart';
 import 'package:vendor_app/Components/Constants.dart';
 import 'package:vendor_app/Components/FlushBar.dart';
@@ -241,11 +242,15 @@ class _MovieDetailsState extends State<MovieDetails> {
                   ),
                   onPressed: () async {
                     Navigator.pop(context);
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('IMAGEURL', null);
                     try {
                       await fireStore
                           .collection('Movies')
                           .doc(widget.documentID)
                           .delete();
+
                       CustomRouter().navigator(context, HomeScreen());
                       Warning().errorMessage(
                         context,
