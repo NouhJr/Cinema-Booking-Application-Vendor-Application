@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:vendor_app/Components/Constants.dart';
 import 'package:vendor_app/Components/Navigator.dart';
+import 'package:vendor_app/Components/FlushBar.dart';
 import 'package:vendor_app/Screens/Movie_Details_Screen.dart';
+import 'package:vendor_app/Screens/Notifications_Screen.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -45,6 +48,30 @@ class _MoviesStreamState extends State<MoviesStream> {
 
           moviesList.add(movieCard);
         }
+
+        final fbm = FirebaseMessaging();
+        fbm.configure(
+          onMessage: (msg) {
+            Warning().errorMessage(
+              context,
+              title: "New seats reserved !",
+              message:
+                  "a user reserved new seats, view it now in notifications.",
+              icons: Icons.notifications_active,
+            );
+            return;
+          },
+          onLaunch: (msg) {
+            CustomRouter().navigator(context, NotificationsScreen());
+            return;
+          },
+          onResume: (msg) {
+            CustomRouter().navigator(context, NotificationsScreen());
+            return;
+          },
+        );
+        fbm.subscribeToTopic('VendorNotfication');
+
         return GridView.builder(
             itemCount: moviesList.length,
             gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
