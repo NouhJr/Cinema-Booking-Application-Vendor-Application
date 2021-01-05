@@ -1,9 +1,18 @@
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+admin.initializeApp();
+
+exports.Function = functions.firestore.document('Vendor Notifications/{docID}').onCreate(
+    (snapshot, context) => {
+        return admin.messaging().sendToTopic('CustomerNotfication',
+        {
+            notification : {
+                title : "New movies added !",
+                body : "Vendor added new movie, view it now.",
+                clickAction : 'FLUTTER_NOTIFICATION_CLICK'
+            }
+        }
+        );
+    }
+);
