@@ -48,7 +48,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "Assets/logo.png"
+  image_path: "Assets/clapperboard.png"
   adaptive_icon_background: "#191919"
 
 # For information on the generic Dart part of this file, see the
@@ -68,6 +68,8 @@ flutter:
     - Assets/logo.png
     - Assets/splash.jpg
     - Assets/screen.png
+    - Assets/clapperboard.png
+    - Assets/cinemascreen.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
