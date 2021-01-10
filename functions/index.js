@@ -3,7 +3,7 @@ const admin = require('firebase-admin');
 
 admin.initializeApp();
 
-exports.Function = functions.firestore.document('Vendor Notifications/{docID}').onCreate(
+exports.Functionnotify = functions.firestore.document('Vendor Notifications/{docID}').onCreate(
     (snapshot, context) => {
         return admin.messaging().sendToTopic('CustomerNotfication',
         {
