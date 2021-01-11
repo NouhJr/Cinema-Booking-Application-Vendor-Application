@@ -7,7 +7,7 @@ System has two apps:
 1- Vendor App:
 * Mobile app allows vendors to (add/delete) their movies.
 * Each movie has (Title, Description, Image, Movie Time, Number of Seats).
-* Number of seats for each movie will be constant (47 seats) as shown in the figure 1.
+* Number of seats for each movie will be constant (47 seats).
 * Movie image can be local file on device or captured through camera.
 * Vendor can view the places of the booked seats for a movie.
 * Vendor gets notification (which display total number of booked seats for a movie) when customer books seats.
