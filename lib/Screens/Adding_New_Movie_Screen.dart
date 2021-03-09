@@ -295,6 +295,7 @@ class _AddingMoviesState extends State<AddingMovies> {
         await fireStore.collection('Vendor Notifications').doc().set({
           'Movie DOC ID': movieTilteController.text
               .replaceAll(new RegExp(r"\s+\b|\b\s"), ""),
+          'Time Stamp': DateTime.now(),
         });
         prefs.setString('IMAGEURL', null);
         CustomRouter().navigator(context, HomeScreen());

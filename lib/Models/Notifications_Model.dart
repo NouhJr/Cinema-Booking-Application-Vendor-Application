@@ -18,7 +18,13 @@ class _NotificationsStreamState extends State<NotificationsStream> {
     //Size Configurations to resize widgets according to screen size.
     SizeConfig().init(context);
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('Customer Notifications').snapshots(),
+      stream: _firestore
+          .collection('Customer Notifications')
+          .orderBy(
+            "Time Stamp",
+            descending: true,
+          )
+          .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
@@ -27,7 +33,7 @@ class _NotificationsStreamState extends State<NotificationsStream> {
             ),
           );
         }
-        final notifications = snapshot.data.docs.reversed;
+        final notifications = snapshot.data.docs;
         List<SingleNotifications> notificationsList = [];
         for (var item in notifications) {
           final userName = item.data()['User Name'];

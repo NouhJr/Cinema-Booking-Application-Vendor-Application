@@ -8,6 +8,7 @@ void main() async {
   runApp(MaterialApp(
     //Start point (Home Screen)
     debugShowCheckedModeBanner: false,
+    title: "Your Cinema - Vendor",
     home: HomeScreen(),
   ));
 }
