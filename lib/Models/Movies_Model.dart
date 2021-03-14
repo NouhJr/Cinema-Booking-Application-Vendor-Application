@@ -27,7 +27,7 @@ class _MoviesStreamState extends State<MoviesStream> {
             ),
           );
         }
-        final movies = snapshot.data.docs;
+        final movies = snapshot.data.docs.reversed;
         List<SingleMovie> moviesList = [];
         for (var movie in movies) {
           final movieName = movie.data()['Title'];
@@ -72,14 +72,18 @@ class _MoviesStreamState extends State<MoviesStream> {
         );
         fbm.subscribeToTopic('VendorNotfication');
 
-        return GridView.builder(
-            itemCount: moviesList.length,
-            gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+        return ListView.builder(
+          itemCount: moviesList.length,
+          itemBuilder: (context, i) => Column(children: <Widget>[
+            moviesList[i],
+            Divider(
+              color: SubMainColor,
+              indent: 80.0,
+              endIndent: 30.0,
+              thickness: 0.8,
             ),
-            itemBuilder: (BuildContext context, int index) {
-              return moviesList[index];
-            });
+          ]),
+        );
       },
     );
   }
@@ -103,40 +107,35 @@ class SingleMovie extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Hero(
-        tag: docID,
-        child: Material(
-          elevation: 10.0,
-          child: InkWell(
-            onTap: () {
-              CustomRouter().navigator(
-                  context,
-                  MovieDetails(
-                    documentID: docID,
-                  ));
-            },
-            child: GridTile(
-              footer: Container(
-                decoration: MoviesCardDecoration,
-                child: ListTile(
-                  leading: Text(
-                    movieTitle,
-                    style: MoviesLabelFontStyle,
-                    //textAlign: TextAlign.center,
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                ),
-              ),
-              child: Image.network(
-                movieImg,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+    return ListTile(
+      leading: Image.network(
+        movieImg,
+      ),
+      title: Text(
+        movieTitle,
+        style: TextStyle(
+          fontFamily: 'Futura PT',
+          fontSize: 22,
+          color: MainFontsColor,
+          fontWeight: FontWeight.w700,
         ),
       ),
+      subtitle: Text(
+        movieDesc,
+        style: TextStyle(
+          fontFamily: 'Futura PT',
+          fontSize: 18,
+          color: SubFontsColor,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+      onTap: () {
+        CustomRouter().navigator(
+            context,
+            MovieDetails(
+              documentID: docID,
+            ));
+      },
     );
   }
 }
