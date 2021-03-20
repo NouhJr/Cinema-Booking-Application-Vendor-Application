@@ -17,3 +17,6 @@ https://www.dropbox.com/sh/yvelzikb9vm2tb7/AAAoy7eR8SqqKGW3QBHg44dla?dl=0
 
 2- Customer App:
 * Customer's app repository can be found here: https://github.com/NouhJr/Cinema-Booking-Application-Customer-Application
+
+## Flutter SDk
+- version:1.22.5
